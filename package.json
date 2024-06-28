@@ -1,0 +1,15 @@
+{
+  "name": "project-tubes",
+  "version": "1.0.0",
+  "description": "A backend project for backend knowledge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Javascript",
+    "backend"
+  ],
+  "author": "Ajay Tomar",
+  "license": "ISC"
+}
