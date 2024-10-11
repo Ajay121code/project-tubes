@@ -1,0 +1,72 @@
+
+# Project Tubes
+
+## Overview
+Project Tubes is a web application designed to create and manage YouTube playlists. This README provides an overview of the project structure, technologies used, and the approach taken in development.
+
+## Table of Contents
+1. [Technologies Used](#technologies-used)
+2. [Project Structure](#project-structure)
+3. [Setup and Installation](#setup-and-installation)
+4. [Development Approach](#development-approach)
+5. [Features](#features)
+6. [Future Enhancements](#future-enhancements)
+
+## Technologies Used
+- Frontend: React(upto suraj)
+- Backend: Node.js, Express
+- Database: MongoDB
+- Authentication: JWT
+- Testing: Jest
+- Deployment: Docker/ or github pages(for sample)
+
+## Project Structure
+- `client/`: Contains the React frontend application (taken care by suraj)
+- `server/`: Houses the Node.js/Express backend
+- `models/`: Defines MongoDB schemas
+- `routes/`: API route definitions
+- `controllers/`: Business logic for handling requests
+- `middleware/`: Custom middleware functions
+- `utils/`: Utility functions and helpers
+
+## Setup and Installation
+1. Clone the repository
+2. Install dependencies for both client and server
+3. Set up environment variables
+4. Start the development server
+
+## Development Approach
+1. **Project Planning**: We started with defining user stories and creating wireframes
+   - Reason: To ensure a clear vision and roadmap for the project
+
+2. **Frontend Development**: We chose React for its component-based architecture and robust ecosystem
+   - Key implementations: Responsive design, state management with Redux, custom hooks for API calls
+
+3. **Backend API Development**: We developed the backend using Node.js and Express
+   - Reason: Fast development, large community support, and easy integration with frontend
+   - Key implementations: RESTful API endpoints, middleware for authentication and error handling
+
+4. **Database Design**: We opted for MongoDB due to its flexibility with document-based storage
+   - Approach: Designed schemas for users, playlists, and videos
+
+5. **Authentication and Security**: Implemented JWT for stateless authentication
+   - Reason: To ensure secure user access and data protection
+
+6. **Testing**: We used Jest for unit and integration testing
+   - Approach: Wrote tests for critical components and API endpoints
+
+7. **Deployment**: The application is deployed using Docker
+   - Reason: Ensures consistency across different environments and simplifies scaling
+
+## Features
+- User registration and authentication
+- Create, edit, and delete playlists
+- Search and add YouTube videos to playlists
+- Share playlists with other users
+- View playlist statistics
+
+## Future Enhancements
+- Implement social features (comments, likes)
+- Add support for other video platforms
+- Develop mobile applications for iOS and Android
+- Implement machine learning for video recommendations
