@@ -27,13 +27,6 @@ app.use(cookieParser());
 import userRouter from './routes/user.routes.js';
 app.use('/api/user', userRouter);
 
-// app.get('/', (req, res) => {
-//     res.send('Welcome to My API! 🚀');
-// });
-app.get('/home', (req, res) => {
-    res.send('Welcome to My API! 🚀');
-});
-// Catch-all 404 handler for undefined routes
 app.use((req, res) => {
     res.status(404).send('404: Page Not Found');
 });
