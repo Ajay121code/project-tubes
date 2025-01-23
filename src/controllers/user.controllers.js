@@ -2,7 +2,7 @@ import {asyncHandler} from '../utils/asyncHandler.js';
 import {ApiError} from '../utils/ApiError.js';
 import {User} from '../models/user.model.js';
 import {uploadOnCloudinary} from '../utils/cloudinary.js';
-import {ApiResponce} from '../utils/ApiResponce.js';
+import {ApiResponse} from '../utils/ApiResponse.js';
 
 const registerUser = asyncHandler(async (req, res) => {
     const { fullName, email, username, password } = req.body
@@ -51,7 +51,49 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     return res.status(201).json(
-        new ApiResponce(201, "User registered successfully", createdUser)
-    )
-})    
-export { registerUser };
+        new ApiResponse(201, "User registered successfully", createdUser)
+    );
+});
+
+const loginUser = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    
+    if (!email) {
+        throw new ApiError(400, "Email is required!")
+    }
+    
+    if (!password?.trim()) {
+        throw new ApiError(400, "Password is required!")
+    }
+    const user = await User.findOne({
+        $or : [{ email }]
+    });
+
+    if (!user) {
+        throw new ApiError(404, "User not found")
+    }
+
+    const isValidPassword = await user.isPasswordCorrect(password);
+    if (!isValidPassword) {
+        throw new ApiError(401, "Invalid password")
+    }
+
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
+
+    user.refreshToken = refreshToken;
+    await user.save()
+
+    const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
+    return res.status(200).json(
+        new ApiResponse(200, "User logged in successfully", {
+            user : loggedInUser,
+            accessToken,
+            refreshToken
+        })
+    );
+
+})
+
+export { registerUser, loginUser };
+
