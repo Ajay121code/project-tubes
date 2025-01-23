@@ -18,27 +18,25 @@ const registerUser = asyncHandler(async (req, res) => {
     })
 
     if (existedUser) {
-        throw new ApiError(409, "User with email or username already exists")
+        throw new ApiError(409, "User with same email or username already exists")
     }
 
-    const avatarLocalPath = req.files?.avatar[0]?.path
-    const coverImageLocalPath = req.files?.coverImage[0]?.path
+    // const avatarLocalPath = req.files?.avatar[0]?.path
+    // const coverImageLocalPath = req.files?.coverImage[0]?.path
 
-    if (!avatarLocalPath) {
-        throw new ApiError(400, "Avatar file is required")
-    }
+    // if (!avatarLocalPath) {
+    //     throw new ApiError(400, "Avatar file is required")
+    // }
 
-    const avatar = await uploadOnCloudinary(avatarLocalPath);
-    const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+    // const avatar = await uploadOnCloudinary(avatarLocalPath);
+    // const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
-    if (!avatar) {
-        throw new ApiError(500, "Something went wrong while uploading avatar")
-    }
+    // if (!avatar) {
+    //     throw new ApiError(500, "Something went wrong while uploading avatar")
+    // }
 
     const user = await User.create({
         fullName,
-        avatar: avatarLocalPath,
-        coverImage: coverImageLocalPath || "",
         email, 
         password,
         username: username.toLowerCase()
