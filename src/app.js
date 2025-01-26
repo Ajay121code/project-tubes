@@ -20,12 +20,15 @@ app.use(express.urlencoded({
     extended: true,
 }));
 
-app.use(express.static('public'));
+app.use(express.static('../public'));
 
 app.use(cookieParser());
 
 import userRouter from './routes/user.routes.js';
 app.use('/api/user', userRouter);
 
+app.use((req, res) => {
+    res.status(404).send('404: Page Not Found');
+});
 
 export default app;
