@@ -33,14 +33,26 @@ const videoSchema = new Schema(
         },
         owner: {
             type: Schema.Types.ObjectId,
-            ref: "User"
+            ref: "User",
+            required: true
+        }, 
+        tags: [{
+            type: String
+        }],
+        deletedAt: {
+            type: Date,
+            default: null
         }
-
     }, 
     {
         timestamps: true
     }
 )
+
+// adding indexing on the following keys : owner, is_published, views 
+videoSchema.index({ owner: 1 });
+videoSchema.index({ isPublished: 1 });
+videoSchema.index({ views: -1 });
 
 videoSchema.plugin(mongooseaggregatePaginate);
 
