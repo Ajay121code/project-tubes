@@ -25,7 +25,9 @@ app.use(express.static('../public'));
 app.use(cookieParser());
 
 import userRouter from './routes/user.routes.js';
+import videoRouter from  './routes/video.routes.js';
 app.use('/api/user', userRouter);
+app.use('/api/v1/video', videoRouter);
 
 app.use((req, res) => {
     res.status(404).send('404: Page Not Found');
