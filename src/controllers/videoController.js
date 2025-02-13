@@ -1,20 +1,44 @@
 import {asyncHandler} from '../utils/asyncHandler.js';
 import {ApiError} from '../utils/ApiError.js';
 import {Video} from '../models/video.model.js';
-import {uploadOnCloudinary} from '../utils/cloudinary.js';
+import {cloudinary} from '../utils/cloudinary.js';
 import {ApiResponse} from '../utils/ApiResponse.js';
 
 const createVideo = asyncHandler( async(req, res) => {
     
-    const { videoFile, thumbnail, title, description, duration, owner } = req.body;
+    const { video, thumbnail, title, description, duration, owner } = req.body;
 
-    if (!videoFile || !thumbnail || !title || !description || !duration || !owner) {
+    if (!video || !thumbnail || !title || !description || !duration || !owner) {
         throw new ApiError(400, "All field are required!");
     }
 
+    // if (!videoBase64.startsWith('data:video/mp4;base64,')) {
+        
+    //     videoBase64 = `data:video/mp4;base64,${videoBase64}`;
+    //   }
+
+    /* start : video upload logic */
+    const uploadVideoResponse = await cloudinary.uploader.upload(video, {
+        resource_type : "video",
+        folder : "videos"
+    });
+    
+    const videoUrl = uploadVideoResponse.secure_url; 
+    /* end : video upload logic */
+
+    /* start : image upload logic */
+    const uploadImageResponse = await cloudinary.uploader.upload(thumbnail, {
+        resource_type : "image",
+        folder : "thumbnails"
+    });
+    
+    const thumbnailUrl = uploadImageResponse.secure_url; 
+    /* end : image upload logic */
+
+    console.log(" [x] Debug :: ", videoUrl )
     const newVideo = new Video({
-        videoFile,
-        thumbnail,
+        videoFile : videoUrl,
+        thumbnail : thumbnailUrl,
         title,
         description,
         duration, 

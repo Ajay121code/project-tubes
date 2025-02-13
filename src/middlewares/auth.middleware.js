@@ -37,7 +37,7 @@ export const auth = async (req, res, next) => {
             next(); // Proceed to the next middleware or route handler
         });
     } catch (error) {
-        console.error("Auth Middleware Error:", error);
+        // console.error("Auth Middleware Error:", error);
         res.status(500).json({ message: "Server error. Please try again later." });
     }
 };
